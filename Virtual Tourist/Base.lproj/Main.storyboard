@@ -100,7 +100,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="6EV-7L-7F6">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" reuseIdentifier="PhotoViewCell" id="6EV-7L-7F6" customClass="PhotoViewCell" customModule="Virtual_Tourist" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -124,6 +124,9 @@
                                                     <constraint firstAttribute="trailing" secondItem="OdY-eW-mXD" secondAttribute="trailing" id="yz7-O8-SEb"/>
                                                     <constraint firstItem="OdY-eW-mXD" firstAttribute="leading" secondItem="6EV-7L-7F6" secondAttribute="leading" id="zoe-dG-qpV"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="OdY-eW-mXD" id="oi6-TT-6US"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>

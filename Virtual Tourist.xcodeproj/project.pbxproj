@@ -16,6 +16,7 @@
 		256473CE2256D4F8001AEBB3 /* Virtual_TouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473CD2256D4F8001AEBB3 /* Virtual_TouristUITests.swift */; };
 		256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */; };
 		256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */; };
+		256473E62256FDB3001AEBB3 /* PhotoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473E52256FDB3001AEBB3 /* PhotoViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		256473CF2256D4F8001AEBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsViewController.swift; sourceTree = "<group>"; };
 		256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
+		256473E52256FDB3001AEBB3 /* PhotoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		256473DB2256E379001AEBB3 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				256473E52256FDB3001AEBB3 /* PhotoViewCell.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				256473AB2256D4F2001AEBB3 /* AppDelegate.swift in Sources */,
 				256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */,
 				256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */,
+				256473E62256FDB3001AEBB3 /* PhotoViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
