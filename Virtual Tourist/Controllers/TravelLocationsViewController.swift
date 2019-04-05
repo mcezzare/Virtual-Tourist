@@ -39,14 +39,14 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is PhotoAlbumViewController {
-//            guard let pin = sender as? Pin else {
-//                return
-//            }
+            //            guard let pin = sender as? Pin else {
+            //                return
+            //            }
             let controller = segue.destination as! PhotoAlbumViewController
-//            controller.pin = pin
+            //            controller.pin = pin
         }
     }
-
+    
     // MARK: - Actions
     
     @IBAction func addPinGesture(_ sender: UILongPressGestureRecognizer) {
@@ -58,8 +58,12 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
             
             pinAnnotation = MKPointAnnotation()
             pinAnnotation!.coordinate = locCoord
+            // TODO: add a reverseGeocodeLocation to toolTip
+            //            pinAnnotation?.title = "Test"
+            //            pinAnnotation?.subtitle = "SubTitle test"
             
             print("\(#function) Coordinate: \(locCoord.latitude),\(locCoord.longitude)")
+            print("\(#function) Location: \(location),\(location.debugDescription)")
             
             mapView.addAnnotation(pinAnnotation!)
             
@@ -67,13 +71,50 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
             pinAnnotation!.coordinate = locCoord
         } else if sender.state == .ended {
             
-//            _ = Pin(
-//                latitude: String(pinAnnotation!.coordinate.latitude),
-//                longitude: String(pinAnnotation!.coordinate.longitude),
-//                context: CoreDataStack.shared().context
-//            )
-//            save()
-            
+            //            _ = Pin(
+            //                latitude: String(pinAnnotation!.coordinate.latitude),
+            //                longitude: String(pinAnnotation!.coordinate.longitude),
+            //                context: CoreDataStack.shared().context
+            //            )
+            //            save()
+            print("\(#function) sender state: \(sender.state)")
         }
+    }
+}
+
+// MARK: - Extensions
+
+extension TravelLocationsViewController {
+    
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = false
+            pinView!.pinTintColor = .red
+            pinView!.animatesDrop = true
+        } else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else {
+            return
+        }
+        
+        mapView.deselectAnnotation(annotation, animated: true)
+        print("\(#function) lat \(annotation.coordinate.latitude) lon \(annotation.coordinate.longitude)")
+//        let lat = String(annotation.coordinate.latitude)
+//        let lon = String(annotation.coordinate.longitude)
+        // segue working..
+        performSegue(withIdentifier: "showAlbum", sender: annotation )
     }
 }
