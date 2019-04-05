@@ -16,7 +16,6 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView:MKMapView!
     @IBOutlet weak var footerView: UIView!
-//    @IBOutlet weak var deletePinsButton:UIButton!
     
     // MARK: - Variables
     var pinAnnotation: MKPointAnnotation? = nil

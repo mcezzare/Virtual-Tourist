@@ -27,21 +27,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-Jv-wBb" userLabel="Footer View">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFe-8o-fnE" userLabel="Tap pins to delete">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pins to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlt-St-dCx">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <state key="normal" title="Tap Pins to Delete">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                    </button>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="GFe-8o-fnE" secondAttribute="trailing" id="d3z-bg-kdV"/>
-                                    <constraint firstItem="GFe-8o-fnE" firstAttribute="top" secondItem="Lo0-Jv-wBb" secondAttribute="top" id="i5m-Ek-GoJ"/>
-                                    <constraint firstItem="GFe-8o-fnE" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="mXo-bH-Cvo"/>
-                                    <constraint firstAttribute="bottom" secondItem="GFe-8o-fnE" secondAttribute="bottom" id="tjJ-vi-8Jy"/>
+                                    <constraint firstAttribute="trailing" secondItem="nlt-St-dCx" secondAttribute="trailing" id="Ra4-kY-yxb"/>
+                                    <constraint firstItem="nlt-St-dCx" firstAttribute="top" secondItem="Lo0-Jv-wBb" secondAttribute="top" id="S8d-Na-q8Y"/>
+                                    <constraint firstItem="nlt-St-dCx" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="Xha-kK-bQX"/>
+                                    <constraint firstAttribute="bottom" secondItem="nlt-St-dCx" secondAttribute="bottom" id="lDb-Lw-8Ty"/>
                                     <constraint firstAttribute="height" constant="66" id="zMf-Jj-THb"/>
                                 </constraints>
                             </view>
@@ -65,7 +64,6 @@
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Ftr-Ee-HRP" userLabel="Edit"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="deletePinsButton" destination="GFe-8o-fnE" id="S12-2N-snt"/>
                         <outlet property="footerView" destination="Lo0-Jv-wBb" id="pXX-VJ-cIn"/>
                         <outlet property="mapView" destination="Owv-xT-eR8" id="WuJ-I8-311"/>
                         <segue destination="u9k-V0-42m" kind="show" identifier="showAlbum" id="W0T-8s-tRb"/>
@@ -150,7 +148,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="FcL-VJ-4E3">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8UQ-Bh-aWD" userLabel="New Collection">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8UQ-Bh-aWD" userLabel="New Collection">
                                             <rect key="frame" x="16" y="7" width="343" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="New Collection"/>
