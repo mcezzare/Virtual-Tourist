@@ -58,7 +58,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-Jv-wBb" userLabel="Footer View">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFe-8o-fnE" userLabel="Tap pins to delete">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFe-8o-fnE" userLabel="Tap pins to delete">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
@@ -96,6 +96,9 @@
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Ftr-Ee-HRP" userLabel="Edit"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="deletePinsButton" destination="GFe-8o-fnE" id="S12-2N-snt"/>
+                        <outlet property="footerView" destination="Lo0-Jv-wBb" id="pXX-VJ-cIn"/>
+                        <outlet property="mapView" destination="Owv-xT-eR8" id="WuJ-I8-311"/>
                         <segue destination="4PI-Zc-peH" kind="show" identifier="showAlbum" id="Bq7-lc-7L4"/>
                     </connections>
                 </viewController>
