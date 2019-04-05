@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class TravelLocationsViewController: UIViewController {
+class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Outlets
     
@@ -18,10 +18,14 @@ class TravelLocationsViewController: UIViewController {
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var deletePinsButton:UIButton!
     
+    // MARK: - Variables
+    var pinAnnotation: MKPointAnnotation? = nil
+    
     // MARK: - UIViewController Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         navigationItem.rightBarButtonItem = editButtonItem
         footerView.isHidden = true
     }
@@ -30,4 +34,6 @@ class TravelLocationsViewController: UIViewController {
         super.setEditing(editing, animated: animated)
         footerView.isHidden = !editing
     }
+    
+    
 }
