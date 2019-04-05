@@ -15,6 +15,8 @@
 		256473B82256D4F8001AEBB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 256473B62256D4F8001AEBB3 /* LaunchScreen.storyboard */; };
 		256473C32256D4F8001AEBB3 /* Virtual_TouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473C22256D4F8001AEBB3 /* Virtual_TouristTests.swift */; };
 		256473CE2256D4F8001AEBB3 /* Virtual_TouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473CD2256D4F8001AEBB3 /* Virtual_TouristUITests.swift */; };
+		256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */; };
+		256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		256473C92256D4F8001AEBB3 /* Virtual TouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Virtual TouristUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		256473CD2256D4F8001AEBB3 /* Virtual_TouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Virtual_TouristUITests.swift; sourceTree = "<group>"; };
 		256473CF2256D4F8001AEBB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelLocationsViewController.swift; sourceTree = "<group>"; };
+		256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,11 @@
 		256473A92256D4F2001AEBB3 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				256473E02256E3FB001AEBB3 /* Models */,
+				256473DD2256E3A7001AEBB3 /* Views */,
+				256473DC2256E38F001AEBB3 /* Extensions */,
+				256473DE2256E3CD001AEBB3 /* Network */,
+				256473DF2256E3EB001AEBB3 /* Controllers */,
 				256473AA2256D4F2001AEBB3 /* AppDelegate.swift */,
 				256473AC2256D4F2001AEBB3 /* ViewController.swift */,
 				256473AE2256D4F2001AEBB3 /* Main.storyboard */,
@@ -126,6 +135,51 @@
 				256473CF2256D4F8001AEBB3 /* Info.plist */,
 			);
 			path = "Virtual TouristUITests";
+			sourceTree = "<group>";
+		};
+		256473DB2256E379001AEBB3 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		256473DC2256E38F001AEBB3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		256473DD2256E3A7001AEBB3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				256473DB2256E379001AEBB3 /* CustomView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		256473DE2256E3CD001AEBB3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		256473DF2256E3EB001AEBB3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */,
+				256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		256473E02256E3FB001AEBB3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +316,8 @@
 				256473AD2256D4F2001AEBB3 /* ViewController.swift in Sources */,
 				256473B32256D4F2001AEBB3 /* Virtual_Tourist.xcdatamodeld in Sources */,
 				256473AB2256D4F2001AEBB3 /* AppDelegate.swift in Sources */,
+				256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */,
+				256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
