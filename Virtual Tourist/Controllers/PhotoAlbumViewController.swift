@@ -11,9 +11,9 @@ import MapKit
 
 class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     
-    // MARK: - Variables
-    
-//     var pin: Pin?
+    // MARK: - Properties
+
+     var pin: Pin?
     
     
     // MARK: - Helpers

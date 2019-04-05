@@ -16,7 +16,7 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView:MKMapView!
     @IBOutlet weak var footerView: UIView!
-    @IBOutlet weak var deletePinsButton:UIButton!
+//    @IBOutlet weak var deletePinsButton:UIButton!
     
     // MARK: - Variables
     var pinAnnotation: MKPointAnnotation? = nil
@@ -28,6 +28,11 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         navigationItem.rightBarButtonItem = editButtonItem
         footerView.isHidden = true
+        
+        if let pins = loadAllPins() {
+            showPins(pins)
+        }
+        
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -39,11 +44,11 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is PhotoAlbumViewController {
-            //            guard let pin = sender as? Pin else {
-            //                return
-            //            }
+            guard let pin = sender as? Pin else {
+                return
+            }
             let controller = segue.destination as! PhotoAlbumViewController
-            //            controller.pin = pin
+            controller.pin = pin
         }
     }
     
@@ -71,16 +76,54 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
             pinAnnotation!.coordinate = locCoord
         } else if sender.state == .ended {
             
-            //            _ = Pin(
-            //                latitude: String(pinAnnotation!.coordinate.latitude),
-            //                longitude: String(pinAnnotation!.coordinate.longitude),
-            //                context: CoreDataStack.shared().context
-            //            )
-            //            save()
+            _ = Pin(
+                latitude: String(pinAnnotation!.coordinate.latitude),
+                longitude: String(pinAnnotation!.coordinate.longitude),
+                context: CoreDataManager.shared().context
+            )
+            save()
             print("\(#function) sender state: \(sender.state)")
         }
     }
+    
+    // MARK: - Helpers
+    
+    private func loadAllPins() -> [Pin]? {
+        var pins: [Pin]?
+        do {
+            try pins = CoreDataManager.shared().fetchAllPins(entityName: Pin.name)
+        } catch {
+            print("\(#function) error:\(error)")
+            showInfoAlert(withTitle: "Error", withMessage: "Error while fetching Pin locations: \(error)")
+        }
+        return pins
+    }
+    
+    private func loadPin(latitude: String, longitude: String) -> Pin? {
+        let predicate = NSPredicate(format: "latitude == %@ AND longitude == %@", latitude, longitude)
+        var pin: Pin?
+        do {
+            try pin = CoreDataManager.shared().fetchPin(predicate, entityName: Pin.name)
+        } catch {
+            print("\(#function) error:\(error)")
+            showInfoAlert(withTitle: "Error", withMessage: "Error while fetching location: \(error)")
+        }
+        return pin
+    }
+    
+    func showPins(_ pins: [Pin]) {
+        for pin in pins where pin.latitude != nil && pin.longitude != nil {
+            let annotation = MKPointAnnotation()
+            let lat = Double(pin.latitude!)!
+            let lon = Double(pin.longitude!)!
+            annotation.coordinate = CLLocationCoordinate2DMake(lat, lon)
+            mapView.addAnnotation(annotation)
+        }
+        mapView.showAnnotations(mapView.annotations, animated: true)
+    }
+    
 }
+
 
 // MARK: - Extensions
 
@@ -95,7 +138,7 @@ extension TravelLocationsViewController {
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = false
+            pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
             pinView!.animatesDrop = true
         } else {
@@ -112,9 +155,17 @@ extension TravelLocationsViewController {
         
         mapView.deselectAnnotation(annotation, animated: true)
         print("\(#function) lat \(annotation.coordinate.latitude) lon \(annotation.coordinate.longitude)")
-//        let lat = String(annotation.coordinate.latitude)
-//        let lon = String(annotation.coordinate.longitude)
-        // segue working..
-        performSegue(withIdentifier: "showAlbum", sender: annotation )
+        let latitude = String(annotation.coordinate.latitude)
+        let longitude = String(annotation.coordinate.longitude)
+        if let pin = loadPin(latitude: latitude, longitude: longitude) {
+            if isEditing {
+                mapView.removeAnnotation(annotation)
+                CoreDataManager.shared().context.delete(pin)
+                save()
+                return
+            }
+            // segue working..
+            performSegue(withIdentifier: "showAlbum", sender: annotation )
+        }
     }
 }
