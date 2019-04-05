@@ -6,9 +6,12 @@
 //  Copyright © 2019 Mario Cezzare. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import MapKit
 
-class PhotoAlbumViewController:UIViewController {
+class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     
+    // MARK: - Variables
+    
+//     var pin: Pin?
 }

@@ -20,6 +20,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Owv-xT-eR8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="eGK-Ja-rUq" appends="YES" id="YQ2-di-vLj"/>
+                                </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-Jv-wBb" userLabel="Footer View">
                                 <rect key="frame" x="0.0" y="601" width="375" height="66"/>
@@ -69,7 +72,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3U3-Gn-75Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="eGK-Ja-rUq"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="eGK-Ja-rUq">
+                    <connections>
+                        <action selector="addPinGesture:" destination="M32-2I-5J8" id="DK9-jK-CAL"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="300" y="85.907046476761622"/>
         </scene>
@@ -110,7 +117,7 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OdY-eW-mXD">
                                                             <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
                                                         </imageView>
-                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ivp-fH-lhA">
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ivp-fH-lhA" userLabel="Image Activity Indicator">
                                                             <rect key="frame" x="65" y="-10" width="20" height="20"/>
                                                         </activityIndicatorView>
                                                     </subviews>
@@ -132,6 +139,13 @@
                                     </collectionView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="faV-y4-fpt" userLabel="Main Activity Indicator">
+                                <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="G81-6g-1FE"/>
+                                    <constraint firstAttribute="height" constant="50" id="h3k-vX-EFR"/>
+                                </constraints>
+                            </activityIndicatorView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0P-2w-auU">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
@@ -148,7 +162,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ghr-Hu-bhV" firstAttribute="top" secondItem="S72-j2-7EW" secondAttribute="top" id="AeQ-de-IP9"/>
+                            <constraint firstItem="faV-y4-fpt" firstAttribute="centerX" secondItem="S72-j2-7EW" secondAttribute="centerX" id="Dlh-fx-doa"/>
                             <constraint firstItem="S72-j2-7EW" firstAttribute="bottom" secondItem="ghr-Hu-bhV" secondAttribute="bottom" id="K6E-rY-BLw"/>
+                            <constraint firstItem="faV-y4-fpt" firstAttribute="centerY" secondItem="S72-j2-7EW" secondAttribute="centerY" constant="-32" id="Kzo-eq-7k5"/>
                             <constraint firstItem="S72-j2-7EW" firstAttribute="trailing" secondItem="ghr-Hu-bhV" secondAttribute="trailing" id="PDH-89-viy"/>
                             <constraint firstItem="ghr-Hu-bhV" firstAttribute="leading" secondItem="S72-j2-7EW" secondAttribute="leading" id="apP-ih-wxi"/>
                             <constraint firstItem="C0P-2w-auU" firstAttribute="centerX" secondItem="S72-j2-7EW" secondAttribute="centerX" id="rya-k6-whU"/>
