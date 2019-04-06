@@ -14,7 +14,7 @@ The app will have two view controller scenes.
 
 ## Example of user flow
 
-App open show the world map, users will be able to zoom and scroll around the map using standard pinch and drag gestures.
+App opens and show the world map, users will be able to zoom and scroll around the map using standard pinch and drag gestures.
 
 ![TravelLocationsViewController](repository-media/01-TravelLocationsViewController.png)
 
@@ -46,13 +46,13 @@ With album fully loaded, user can tap the `New Collection` button to fetch other
 
 ![PhotoAlbumViewController](repository-media/05-PhotoAlbumViewController-loaded.png)
 
-In the App example of [udacity](https://itunes.apple.com/us/app/virtual-tourist-portfolio/id994696845?mt=8), if the user selects an image the `New Collection` button is changed by a `Remove items` button, I decided to use a trash button as I find it more intuitive.
+In the App example of [udacity](https://itunes.apple.com/us/app/virtual-tourist-portfolio/id994696845?mt=8), if the user selects an image, the `New Collection` button is changed by a `Remove items` button, I decided to use a trash button as I find it more intuitive.
 
 If the user touches the `🗑` button without selecting any image, an alert will appear to select the photos to be removed.
 
 ![PhotoAlbumViewController](repository-media/06-PhotoAlbumViewController-trash-icon.png)
 
-User touches the photos he wants to remove and the items are highlighted from the rest with a blue border and an alpha effect. A user confirmation is made and the photos are rearranged in the collection.
+User touches the photos he wants to remove and the items are highlighted from the rest with a blue border and an alpha effect. A user confirmation is made , then the pictures are removed, and the other photos are rearranged in the collection.
 Changes are persisted to the database automatically.
 
 ![PhotoAlbumViewController](repository-media/07-PhotoAlbumViewController-trash-icon.png)
