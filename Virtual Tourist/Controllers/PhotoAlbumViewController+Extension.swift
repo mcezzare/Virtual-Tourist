@@ -66,6 +66,8 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
 
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
+    
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
@@ -93,11 +95,17 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         configImage(using: photoViewCell, photo: photo, collectionView: collectionView, index: indexPath)
     }
     
+    // To delete images
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photoToDelete = fetchedResultsController.object(at: indexPath)
-        CoreDataManager.shared().context.delete(photoToDelete)
-        save()
+        collectionView.allowsMultipleSelection = true
+        self.selectedIndexes.append(indexPath)
+        // Migrate this code to implement multiple selection and confirmation alert to remove itens
+        //let photoToDelete = fetchedResultsController.object(at: indexPath)
+        //CoreDataManager.shared().context.delete(photoToDelete)
+        //save()
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying: UICollectionViewCell, forItemAt: IndexPath) {
         
