@@ -49,6 +49,10 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         guard let pin = pin else {
             return
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadStarted), name: .reloadStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCompleted), name: .reloadCompleted, object: nil)
+        
         showOnTheMap(pin)
         setupFetchedResultControllerWith(pin)
         
@@ -62,6 +66,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         updateFlowLayout(size)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     // MARK: - Actions
     
     /// Delete all photos from DB and get new from Flickr API
@@ -73,9 +80,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             CoreDataManager.shared().context.delete(photos)
         }
         save()
-        self.enableUIControls(false)
         fetchPhotosFromAPI(pin!)
-        self.enableUIControls(true)
     }
     
     
@@ -137,10 +142,10 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     ///
     /// - Parameter pin: pin entity
     private func fetchPhotosFromAPI(_ pin: Pin) {
-        enableUIControls(false)
         let lat = Double(pin.latitude!)!
         let lon = Double(pin.longitude!)!
         
+        NotificationCenter.default.post(name: .reloadStarted, object:nil)
         activityIndicator.startAnimating()
         self.updateStatusLabel("Fetching photos ...")
         
@@ -158,6 +163,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
                 
                 if totalPhotos == 0 {
                     self.updateStatusLabel("No photos found for this location.")
+                    NotificationCenter.default.post(name: .reloadCompleted, object:nil)
                 }
             } else if let error = error {
                 print("\(#function) error:\(error)")
@@ -166,7 +172,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             }
             
         }
-        self.enableUIControls(true)
+        //        NotificationCenter.default.post(name: .reloadCompleted, object:nil)
     }
     
     private func updateStatusLabel(_ text: String) {
@@ -185,6 +191,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         func showErrorMessage(msg: String) {
             showInfoAlert(withTitle: "Error", withMessage: msg)
         }
+        NotificationCenter.default.post(name: .reloadStarted, object:nil)
         for photo in photos {
             performUIUpdatesOnMain {
                 if let url = photo.url {
@@ -194,7 +201,8 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             }
             
         }
-
+        NotificationCenter.default.post(name: .reloadCompleted, object:nil)
+        
     }
     
     
@@ -257,6 +265,14 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         self.enableUIItens(views: button, barButton: trashButton, enable:enable)
     }
     
+    
+    @objc func reloadStarted() {
+        self.enableUIControls(false)
+    }
+    
+    @objc func reloadCompleted() {
+        self.enableUIControls(true)
+    }
     //    I chose to use a trash button in TabBar
     //    func updateBottomButton() {
     //        if selectedIndexes.count > 0 {

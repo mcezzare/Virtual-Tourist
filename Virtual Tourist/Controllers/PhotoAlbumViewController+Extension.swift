@@ -40,12 +40,12 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
         collectionView.performBatchUpdates({() -> Void in
-            
+            NotificationCenter.default.post(name: .reloadStarted, object:nil)
             for indexPath in self.insertedIndexPaths {
                 self.collectionView.insertItems(at: [indexPath])
             }
+            
             
             for indexPath in self.deletedIndexPaths {
                 self.collectionView.deleteItems(at: [indexPath])
@@ -55,7 +55,14 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
                 self.collectionView.reloadItems(at: [indexPath])
             }
             
-        }, completion: nil)
+            //           }, completion: nil)
+        }, completion:{(result:Bool) in
+            if result {
+                NotificationCenter.default.post(name: .reloadCompleted, object:nil)
+            }
+        }
+        )
+        
     }
     
 }
@@ -141,6 +148,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
             if let imageUrl = photo.imageUrl {
                 cell.activityIndicator.startAnimating()
                 Client.shared().downloadImage(imageUrl: imageUrl) { (data, error) in
+                    //                NotificationCenter.default.post(name: .reloadStarted, object:nil)
                     if let _ = error {
                         self.performUIUpdatesOnMain {
                             cell.activityIndicator.stopAnimating()
@@ -162,6 +170,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
                             }
                         }
                     }
+                    //                    NotificationCenter.default.post(name: .reloadCompleted, object:nil)
                 }
             }
         }
