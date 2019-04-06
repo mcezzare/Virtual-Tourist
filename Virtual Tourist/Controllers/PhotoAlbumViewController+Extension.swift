@@ -62,7 +62,6 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
             }
         }
         )
-        
     }
     
 }
