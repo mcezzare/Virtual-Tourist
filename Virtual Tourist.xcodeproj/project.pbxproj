@@ -27,6 +27,7 @@
 		25A44B132258429500402719 /* PhotosFlickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B122258429500402719 /* PhotosFlickr.swift */; };
 		25A44B1B2258438900402719 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B192258438900402719 /* Client.swift */; };
 		25A44B1C2258438900402719 /* Client+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B1A2258438900402719 /* Client+Extension.swift */; };
+		25CE092E225935BD00C05B94 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25CE092D225935BD00C05B94 /* Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		25A44B122258429500402719 /* PhotosFlickr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFlickr.swift; sourceTree = "<group>"; };
 		25A44B192258438900402719 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = "Virtual Tourist/Network/Client.swift"; sourceTree = SOURCE_ROOT; };
 		25A44B1A2258438900402719 /* Client+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Client+Extension.swift"; path = "Virtual Tourist/Network/Client+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		25CE092D225935BD00C05B94 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				25A44B002257FA3800402719 /* ViewController+Extensions.swift */,
+				25CE092D225935BD00C05B94 /* Notifications.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				256473AB2256D4F2001AEBB3 /* AppDelegate.swift in Sources */,
 				256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */,
 				256473ED225719BD001AEBB3 /* Pin+CoreDataClass.swift in Sources */,
+				25CE092E225935BD00C05B94 /* Notifications.swift in Sources */,
 				25A44B1B2258438900402719 /* Client.swift in Sources */,
 				256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */,
 				25A44B112258426D00402719 /* PhotoAlbumViewController+Extension.swift in Sources */,
