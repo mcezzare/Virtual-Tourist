@@ -37,26 +37,23 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="nlt-St-dCx" secondAttribute="trailing" id="Ra4-kY-yxb"/>
-                                    <constraint firstItem="nlt-St-dCx" firstAttribute="top" secondItem="Lo0-Jv-wBb" secondAttribute="top" id="S8d-Na-q8Y"/>
-                                    <constraint firstItem="nlt-St-dCx" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="Xha-kK-bQX"/>
-                                    <constraint firstAttribute="bottom" secondItem="nlt-St-dCx" secondAttribute="bottom" id="lDb-Lw-8Ty"/>
-                                    <constraint firstAttribute="height" constant="66" id="zMf-Jj-THb"/>
+                                    <constraint firstItem="nlt-St-dCx" firstAttribute="top" secondItem="Lo0-Jv-wBb" secondAttribute="top" id="0AE-Ae-QxE"/>
+                                    <constraint firstItem="nlt-St-dCx" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="Ocv-hD-hYM"/>
+                                    <constraint firstAttribute="trailing" secondItem="nlt-St-dCx" secondAttribute="trailing" id="PPa-NI-zYA"/>
+                                    <constraint firstAttribute="bottom" secondItem="nlt-St-dCx" secondAttribute="bottom" id="cZ0-Xq-DVs"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Owv-xT-eR8" firstAttribute="top" secondItem="eoh-8w-tHZ" secondAttribute="top" constant="64" id="5iE-Lz-2Fj"/>
-                            <constraint firstItem="WHL-60-te4" firstAttribute="bottom" secondItem="Lo0-Jv-wBb" secondAttribute="bottom" id="8Kx-hO-d1y"/>
-                            <constraint firstItem="Owv-xT-eR8" firstAttribute="centerX" secondItem="WHL-60-te4" secondAttribute="centerX" id="AOG-cm-ghr"/>
-                            <constraint firstItem="Owv-xT-eR8" firstAttribute="centerY" secondItem="WHL-60-te4" secondAttribute="centerY" id="Dnx-TM-vve"/>
-                            <constraint firstItem="WHL-60-te4" firstAttribute="bottom" secondItem="Owv-xT-eR8" secondAttribute="bottom" id="QZ9-am-0YZ"/>
-                            <constraint firstItem="Lo0-Jv-wBb" firstAttribute="centerX" secondItem="WHL-60-te4" secondAttribute="centerX" id="Wml-M3-unz"/>
-                            <constraint firstItem="WHL-60-te4" firstAttribute="trailing" secondItem="Lo0-Jv-wBb" secondAttribute="trailing" id="YOF-Ee-OWH"/>
-                            <constraint firstItem="Owv-xT-eR8" firstAttribute="leading" secondItem="WHL-60-te4" secondAttribute="leading" id="aJh-iL-yrM"/>
-                            <constraint firstItem="Lo0-Jv-wBb" firstAttribute="leading" secondItem="WHL-60-te4" secondAttribute="leading" id="ktM-ya-88Q"/>
-                            <constraint firstItem="WHL-60-te4" firstAttribute="trailing" secondItem="Owv-xT-eR8" secondAttribute="trailing" id="mtj-v3-xGx"/>
+                            <constraint firstItem="Owv-xT-eR8" firstAttribute="top" secondItem="WHL-60-te4" secondAttribute="top" id="Bhl-1a-ux6"/>
+                            <constraint firstItem="Lo0-Jv-wBb" firstAttribute="bottom" secondItem="Owv-xT-eR8" secondAttribute="bottom" id="Uc3-dI-R5q"/>
+                            <constraint firstAttribute="trailing" secondItem="Owv-xT-eR8" secondAttribute="trailing" id="d9i-J8-YRn"/>
+                            <constraint firstItem="Owv-xT-eR8" firstAttribute="leading" secondItem="eoh-8w-tHZ" secondAttribute="leading" id="f2K-bn-kgB"/>
+                            <constraint firstItem="Owv-xT-eR8" firstAttribute="trailing" secondItem="Lo0-Jv-wBb" secondAttribute="trailing" id="qnw-GZ-BDA"/>
+                            <constraint firstItem="Owv-xT-eR8" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="w6V-59-P3n"/>
+                            <constraint firstItem="Lo0-Jv-wBb" firstAttribute="top" secondItem="WHL-60-te4" secondAttribute="top" constant="537" id="xh9-s4-bpc"/>
+                            <constraint firstItem="Owv-xT-eR8" firstAttribute="bottom" secondItem="WHL-60-te4" secondAttribute="bottom" id="zkg-o7-aoW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WHL-60-te4"/>
                     </view>
@@ -148,7 +145,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="FcL-VJ-4E3">
-                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8UQ-Bh-aWD" userLabel="New Collection">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8UQ-Bh-aWD" userLabel="New Collection">
                                             <rect key="frame" x="16" y="7" width="343" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="New Collection"/>
