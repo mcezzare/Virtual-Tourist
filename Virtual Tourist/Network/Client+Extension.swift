@@ -53,4 +53,3 @@ extension Client {
         static let AccuracyStreetLevel = "16"
     }
 }
-
