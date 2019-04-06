@@ -16,7 +16,14 @@ class PhotoViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    
+    // To allow multiple selection and mark selected images
+    override var isSelected: Bool {
+        didSet {
+            self.layer.borderWidth = 3.0
+            self.layer.borderColor = isSelected ? UIColor.blue.cgColor : UIColor.clear.cgColor
+            self.imageView.alpha = 0.3
+        }
+    }
 }
 
 

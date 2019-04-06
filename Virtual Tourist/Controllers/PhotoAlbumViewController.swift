@@ -20,7 +20,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelStatus: UILabel!
-    
+    @IBOutlet weak var trashButton: UIBarButtonItem!
     // MARK: - Variables
     
     var selectedIndexes = [IndexPath]()
@@ -70,6 +70,22 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         }
         save()
         fetchPhotosFromAPI(pin!)
+    }
+    
+    
+    @IBAction func deletePhotos(_ sender: Any) {
+        let confirmMessage = "Remove selected itens?"
+        self.showConfirmationAlert(withMessage: confirmMessage, actionTitle: "Remove") {
+            // code to remove itens from collection and from DB.
+            for item in self.selectedIndexes {
+                print("Removing \(item)")
+                let photoToDelete = self.fetchedResultsController.object(at: item)
+                CoreDataManager.shared().context.delete(photoToDelete)
+                
+            }
+            self.save()
+        }
+        
     }
     
     // MARK: - Helpers

@@ -172,14 +172,19 @@
                                         <rect key="frame" x="0.0" y="573" width="375" height="30"/>
                                         <items>
                                             <barButtonItem style="plain" id="xZ1-ml-kI8">
-                                                <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FDq-e2-R0u">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="30"/>
+                                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FDq-e2-R0u" userLabel="NewCollection">
+                                                    <rect key="frame" x="16" y="0.0" width="289" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="New Collection"/>
                                                     <connections>
                                                         <action selector="deleteAction:" destination="H2h-o1-oHO" eventType="touchUpInside" id="yF5-1P-RJa"/>
                                                     </connections>
                                                 </button>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="trash" id="rfc-Jk-uuD">
+                                                <connections>
+                                                    <action selector="deletePhotos:" destination="H2h-o1-oHO" id="em6-x0-qkr"/>
+                                                </connections>
                                             </barButtonItem>
                                         </items>
                                     </toolbar>
@@ -216,6 +221,7 @@
                         <outlet property="flowLayout" destination="djv-Cm-Gk5" id="6gE-oD-gqX"/>
                         <outlet property="labelStatus" destination="cYb-Xk-5fc" id="T4I-aW-xHs"/>
                         <outlet property="mapView" destination="hbg-cC-q9r" id="R6c-ki-zzR"/>
+                        <outlet property="trashButton" destination="rfc-Jk-uuD" id="PkV-bE-uvH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jet-Fk-lk7" userLabel="First Responder" sceneMemberID="firstResponder"/>
