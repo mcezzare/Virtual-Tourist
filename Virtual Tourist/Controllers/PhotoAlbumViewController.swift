@@ -73,7 +73,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             CoreDataManager.shared().context.delete(photos)
         }
         save()
+        self.enableUIControls(false)
         fetchPhotosFromAPI(pin!)
+        self.enableUIControls(true)
     }
     
     
@@ -146,7 +148,6 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             self.performUIUpdatesOnMain {
                 self.activityIndicator.stopAnimating()
                 self.labelStatus.text = ""
-                self.enableUIControls(true)
             }
             
             if let photosParsed = photosParsed {
@@ -157,16 +158,15 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
                 
                 if totalPhotos == 0 {
                     self.updateStatusLabel("No photos found for this location.")
-                    self.enableUIControls(true)
                 }
             } else if let error = error {
                 print("\(#function) error:\(error)")
                 self.showInfoAlert(withTitle: "Error", withMessage: error.localizedDescription)
                 self.updateStatusLabel("Something went wrong, please try again.")
-                self.enableUIControls(true)
             }
+            
         }
-        
+        self.enableUIControls(true)
     }
     
     private func updateStatusLabel(_ text: String) {
