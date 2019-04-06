@@ -129,7 +129,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     ///
     /// - Parameter pin: pin entity
     private func fetchPhotosFromAPI(_ pin: Pin) {
-        
+        enableUIControls(false)
         let lat = Double(pin.latitude!)!
         let lon = Double(pin.longitude!)!
         
@@ -140,6 +140,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             self.performUIUpdatesOnMain {
                 self.activityIndicator.stopAnimating()
                 self.labelStatus.text = ""
+                self.enableUIControls(true)
             }
             
             if let photosParsed = photosParsed {
@@ -149,14 +150,17 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
                 self.storePhotos(photosParsed.photos.photo, forPin: pin)
                 
                 if totalPhotos == 0 {
-                    self.updateStatusLabel("No photos found for this location 😢")
+                    self.updateStatusLabel("No photos found for this location.")
+                    self.enableUIControls(true)
                 }
             } else if let error = error {
                 print("\(#function) error:\(error)")
                 self.showInfoAlert(withTitle: "Error", withMessage: error.localizedDescription)
-                self.updateStatusLabel("Something went wrong, please try again 🧐")
+                self.updateStatusLabel("Something went wrong, please try again.")
+                self.enableUIControls(true)
             }
         }
+        
     }
     
     private func updateStatusLabel(_ text: String) {
@@ -175,7 +179,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         func showErrorMessage(msg: String) {
             showInfoAlert(withTitle: "Error", withMessage: msg)
         }
-        
+        self.enableUIControls(false)
         for photo in photos {
             performUIUpdatesOnMain {
                 if let url = photo.url {
@@ -183,6 +187,10 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
                     self.save()
                 }
             }
+            
+        }
+        performUIUpdatesOnMain {
+            self.enableUIControls(true)
         }
     }
     
@@ -238,6 +246,12 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         flowLayout?.minimumLineSpacing = space
         flowLayout?.itemSize = CGSize(width: dimension, height: dimension)
         flowLayout?.sectionInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
+    }
+    
+    // MARK: Call UIViewController Extension to lock UI Itens
+    private func enableUIControls(_ enable: Bool){
+        print("\(#function): , \(enable)")
+        self.enableUIItens(views: button, barButton: trashButton, enable:enable)
     }
     
     //    I chose to use a trash button in TabBar

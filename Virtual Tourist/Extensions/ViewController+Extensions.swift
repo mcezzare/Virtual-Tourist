@@ -69,4 +69,16 @@ extension UIViewController {
             updates()
         }
     }
+    
+    // MARK: Lock or Unlock UI Itens when do background tasks
+    func enableUIItens(views:UIControl..., barButton: UIBarButtonItem, enable:Bool){
+        performUIUpdatesOnMain{
+            for view in views{
+                view.isEnabled = enable
+            }
+            
+            barButton.isEnabled = enable
+            
+        }
+    }
 }
