@@ -25,10 +25,10 @@
                                 </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lo0-Jv-wBb" userLabel="Footer View">
-                                <rect key="frame" x="0.0" y="601" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap Pins to Delete" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nlt-St-dCx">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="66"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                         <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -41,6 +41,7 @@
                                     <constraint firstItem="nlt-St-dCx" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="Ocv-hD-hYM"/>
                                     <constraint firstAttribute="trailing" secondItem="nlt-St-dCx" secondAttribute="trailing" id="PPa-NI-zYA"/>
                                     <constraint firstAttribute="bottom" secondItem="nlt-St-dCx" secondAttribute="bottom" id="cZ0-Xq-DVs"/>
+                                    <constraint firstAttribute="height" constant="50" id="lNL-Do-iKh"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -52,7 +53,6 @@
                             <constraint firstItem="Owv-xT-eR8" firstAttribute="leading" secondItem="eoh-8w-tHZ" secondAttribute="leading" id="f2K-bn-kgB"/>
                             <constraint firstItem="Owv-xT-eR8" firstAttribute="trailing" secondItem="Lo0-Jv-wBb" secondAttribute="trailing" id="qnw-GZ-BDA"/>
                             <constraint firstItem="Owv-xT-eR8" firstAttribute="leading" secondItem="Lo0-Jv-wBb" secondAttribute="leading" id="w6V-59-P3n"/>
-                            <constraint firstItem="Lo0-Jv-wBb" firstAttribute="top" secondItem="WHL-60-te4" secondAttribute="top" constant="537" id="xh9-s4-bpc"/>
                             <constraint firstItem="Owv-xT-eR8" firstAttribute="bottom" secondItem="WHL-60-te4" secondAttribute="bottom" id="zkg-o7-aoW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WHL-60-te4"/>
