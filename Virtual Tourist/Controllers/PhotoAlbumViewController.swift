@@ -21,6 +21,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelStatus: UILabel!
     @IBOutlet weak var trashButton: UIBarButtonItem!
+    
     // MARK: - Variables
     
     var selectedIndexes = [IndexPath]()
@@ -29,7 +30,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     var updatedIndexPaths: [IndexPath]!
     var totalPages: Int? = nil
     
-    var presentingAlert = false
+    var displayAlertForInvalidImages = false
     var pin: Pin?
     var fetchedResultsController: NSFetchedResultsController<Photo>!
     
@@ -42,7 +43,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         mapView.isZoomEnabled = false
         mapView.isScrollEnabled = false
         
-        // we're setting an empty text in it.
+        // Cleanup the Label
         updateStatusLabel("")
         
         guard let pin = pin else {
@@ -63,6 +64,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Actions
     
+    /// Delete all photos from DB and get new from Flickr API
+    ///
+    /// - Parameter sender: new collection button
     @IBAction func deleteAction(_ sender: Any) {
         // delete all photos
         for photos in fetchedResultsController.fetchedObjects! {
@@ -73,6 +77,9 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     }
     
     
+    /// Ask for confirmation to delete photos selected in collection
+    ///
+    /// - Parameter sender: trash bar iten button
     @IBAction func deletePhotos(_ sender: Any) {
         let confirmMessage = "Remove selected itens?"
         self.showConfirmationAlert(withMessage: confirmMessage, actionTitle: "Remove") {
@@ -90,17 +97,21 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Helpers
     
+    
+    /// Initialize the Fetch Request from DB
+    ///
+    /// - Parameter pin: pin entity
     private func setupFetchedResultControllerWith(_ pin: Pin) {
         
         let fr = NSFetchRequest<Photo>(entityName: Photo.name)
         fr.sortDescriptors = []
         fr.predicate = NSPredicate(format: "pin == %@", argumentArray: [pin])
         
-        // Create the FetchedResultsController
+        // Create the fRC
         fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: CoreDataManager.shared().context, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
-        // Start the fetched results controller
+        // Start the fRC
         var error: NSError?
         do {
             try fetchedResultsController.performFetch()
@@ -113,6 +124,10 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    
+    /// Make the Requests to Flickr API from a specific PIN(location)
+    ///
+    /// - Parameter pin: pin entity
     private func fetchPhotosFromAPI(_ pin: Pin) {
         
         let lat = Double(pin.latitude!)!
@@ -121,16 +136,18 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         activityIndicator.startAnimating()
         self.updateStatusLabel("Fetching photos ...")
         
-        Client.shared().searchBy(latitude: lat, longitude: lon, totalPages: totalPages) { (photosParsed, error) in
+        Client.shared().searchFlickrImages(latitude: lat, longitude: lon, totalPages: totalPages) { (photosParsed, error) in
             self.performUIUpdatesOnMain {
                 self.activityIndicator.stopAnimating()
                 self.labelStatus.text = ""
             }
+            
             if let photosParsed = photosParsed {
                 self.totalPages = photosParsed.photos.pages
                 let totalPhotos = photosParsed.photos.photo.count
                 print("\(#function) Downloading \(totalPhotos) photos.")
                 self.storePhotos(photosParsed.photos.photo, forPin: pin)
+                
                 if totalPhotos == 0 {
                     self.updateStatusLabel("No photos found for this location 😢")
                 }
@@ -148,7 +165,13 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func storePhotos(_ photos: [PhotoParser], forPin: Pin) {
+    
+    /// Save the photos in DB
+    ///
+    /// - Parameters:
+    ///   - photos: photos from json data
+    ///   - forPin: forPin entity
+    private func storePhotos(_ photos: [PhotoFlickr], forPin: Pin) {
         func showErrorMessage(msg: String) {
             showInfoAlert(withTitle: "Error", withMessage: msg)
         }
@@ -163,6 +186,10 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    
+    /// Draw the specific pin on the Map
+    ///
+    /// - Parameter pin: pin entity
     private func showOnTheMap(_ pin: Pin) {
         
         let lat = Double(pin.latitude!)!
@@ -177,6 +204,11 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         mapView.setCenter(locCoord, animated: true)
     }
     
+    
+    /// Load photos from DB and external storage
+    ///
+    /// - Parameter pin: pin entity
+    /// - Returns: list of photos
     private func loadPhotos(using pin: Pin) -> [Photo]? {
         let predicate = NSPredicate(format: "pin == %@", argumentArray: [pin])
         var photos: [Photo]?
@@ -184,11 +216,15 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             try photos = CoreDataManager.shared().fetchPhotos(predicate, entityName: Photo.name)
         } catch {
             print("\(#function) error:\(error)")
-            showInfoAlert(withTitle: "Error", withMessage: "Error while lading Photos from disk: \(error)")
+            showInfoAlert(withTitle: "Error", withMessage: "Error while loading Photos from disk: \(error)")
         }
         return photos
     }
     
+    
+    /// Update screen on device rotation
+    ///
+    /// - Parameter withSize: <#withSize description#>
     private func updateFlowLayout(_ withSize: CGSize) {
         
         let landscape = withSize.width > withSize.height
@@ -204,18 +240,21 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         flowLayout?.sectionInset = UIEdgeInsets(top: space, left: space, bottom: space, right: space)
     }
     
-    func updateBottomButton() {
-        if selectedIndexes.count > 0 {
-            button.setTitle("Remove Selected", for: .normal)
-        } else {
-            button.setTitle("New Collection", for: .normal)
-        }
-    }
+    //    I chose to use a trash button in TabBar
+    //    func updateBottomButton() {
+    //        if selectedIndexes.count > 0 {
+    //            button.setTitle("Remove Selected", for: .normal)
+    //        } else {
+    //            button.setTitle("New Collection", for: .normal)
+    //        }
+    //    }
 }
 
-// MARK: - MKMapViewDelegate
+// MARK: - Extensions
 
 extension PhotoAlbumViewController {
+    
+    // MARK: - MKMapViewDelegates
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -225,7 +264,7 @@ extension PhotoAlbumViewController {
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = false
+            pinView!.canShowCallout = true
             pinView!.pinTintColor = .red
         } else {
             pinView!.annotation = annotation

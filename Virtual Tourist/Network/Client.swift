@@ -16,7 +16,7 @@ class Client {
     var session = URLSession.shared
     private var tasks: [String: URLSessionDataTask] = [:]
     
-    // MARK: Shared Instance
+    // MARK: - Shared Instance
     
     class func shared() -> Client {
         struct Singleton {
@@ -25,7 +25,14 @@ class Client {
         return Singleton.shared
     }
     
-    func searchBy(latitude: Double, longitude: Double, totalPages: Int?, completion: @escaping (_ result: PhotosParser?, _ error: Error?) -> Void) {
+    /// Make a search on Flickr API using a GET Request
+    ///
+    /// - Parameters:
+    ///   - latitude: latitude coordinate
+    ///   - longitude: longitude coordinate
+    ///   - totalPages: number of pages
+    ///   - completion: closure for completion task
+    func searchFlickrImages(latitude: Double, longitude: Double, totalPages: Int?, completion: @escaping (_ result: PhotosFlickr?, _ error: Error?) -> Void) {
         
         // choosing a random page.
         var page: Int {
@@ -61,7 +68,7 @@ class Client {
             }
             
             do {
-                let photosParser = try JSONDecoder().decode(PhotosParser.self, from: data)
+                let photosParser = try JSONDecoder().decode(PhotosFlickr.self, from: data)
                 completion(photosParser, nil)
             } catch {
                 print("\(#function) error: \(error)")
@@ -70,6 +77,12 @@ class Client {
         }
     }
     
+    
+    /// Download the image
+    ///
+    /// - Parameters:
+    ///   - imageUrl: a string with the image URL
+    ///   - result: closure to process the data or error
     func downloadImage(imageUrl: String, result: @escaping (_ result: Data?, _ error: NSError?) -> Void) {
         guard let url = URL(string: imageUrl) else {
             return
@@ -84,6 +97,10 @@ class Client {
         }
     }
     
+    
+    /// Abort the task of download
+    ///
+    /// - Parameter imageUrl: a string with the image URL
     func cancelDownload(_ imageUrl: String) {
         tasks[imageUrl]?.cancel()
         if tasks.removeValue(forKey: imageUrl) != nil {
@@ -97,13 +114,22 @@ extension Client {
     
     // MARK: - GET
     
+    
+    /// Simplified method for make HTTP GET Requests
+    ///
+    /// - Parameters:
+    ///   - method: GET
+    ///   - customUrl: a valid URL for make the request
+    ///   - parameters: array of parameters to use on QueryString
+    ///   - completionHandlerForGET: closure to completionHandlerForGET
+    /// - Returns: a URLSessionDataTask
     func taskForGETMethod(
         _ method               : String? = nil,
         _ customUrl            : URL? = nil,
         parameters             : [String: String],
         completionHandlerForGET: @escaping (_ result: Data?, _ error: NSError?) -> Void) -> URLSessionDataTask {
         
-        /* 2/3. Build the URL, Configure the request */
+        /* 1/2/3. Build the URL, Configure the request */
         let request: NSMutableURLRequest!
         if let customUrl = customUrl {
             request = NSMutableURLRequest(url: customUrl)
@@ -160,8 +186,14 @@ extension Client {
         return task
     }
     
-    // MARK: Helper for Creating a URL from Parameters
+    // MARK: - Helpers
     
+    /// Create a URL from parameters
+    ///
+    /// - Parameters:
+    ///   - parameters: main method of rest api and any additional parameters to use on QueryString
+    ///   - withPathExtension: params of QueryString
+    /// - Returns: a ready to use and valid URL
     private func buildURLFromParameters(_ parameters: [String: String], withPathExtension: String? = nil) -> URL {
         
         var components = URLComponents()
@@ -178,8 +210,15 @@ extension Client {
         return components.url!
     }
     
+    
+    /// Ensure bbox is bounded by minimum and maximums
+    ///
+    /// - Parameters:
+    ///   - latitude: latitude coordinate
+    ///   - longitude: longitude coordinate
+    /// - Returns: a string with safe params to use on Flickr API
     private func bboxString(latitude: Double, longitude: Double) -> String {
-        // ensure bbox is bounded by minimum and maximums
+        //
         let minimumLon = max(longitude - Flickr.SearchBBoxHalfWidth, Flickr.SearchLonRange.0)
         let minimumLat = max(latitude  - Flickr.SearchBBoxHalfHeight, Flickr.SearchLatRange.0)
         let maximumLon = min(longitude + Flickr.SearchBBoxHalfWidth, Flickr.SearchLonRange.1)

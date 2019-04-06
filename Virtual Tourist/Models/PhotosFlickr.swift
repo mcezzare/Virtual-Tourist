@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct PhotosParser: Codable {
+struct PhotosFlickr: Codable {
     let photos: Photos
 }
 
 struct Photos: Codable {
     let pages: Int
-    let photo: [PhotoParser]
+    let photo: [PhotoFlickr]
 }
 
-struct PhotoParser: Codable {
+struct PhotoFlickr: Codable {
     
     let url: String?
     let title: String

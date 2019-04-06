@@ -10,10 +10,13 @@ import UIKit
 
 extension UIViewController {
     
+    // MARK: - Properties
     var appDelegate: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
     
+    
+    /// Shortcut to call Save Context Operations from View Controllers
     func save() {
         do {
             try CoreDataManager.shared().saveContext()
@@ -22,6 +25,13 @@ extension UIViewController {
         }
     }
     
+    
+    /// Show an alert dialog
+    ///
+    /// - Parameters:
+    ///   - withTitle: Title from alert message
+    ///   - withMessage: Text message to appear
+    ///   - action: Here only OK option
     func showInfoAlert(withTitle: String = "Info", withMessage: String, action: (() -> Void)? = nil) {
         performUIUpdatesOnMain {
             let ac = UIAlertController(title: withTitle, message: withMessage, preferredStyle: .alert)
@@ -32,12 +42,13 @@ extension UIViewController {
         }
     }
     
-    func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
-        DispatchQueue.main.async {
-            updates()
-        }
-    }
     
+    /// Show an confirmation action alert dialog
+    ///
+    /// - Parameters:
+    ///   - withTitle: Title from alert message
+    ///   - withMessage: Text message to appear
+    ///   - action: closure to run if user no choose the cancel option
     func showConfirmationAlert(withMessage: String, actionTitle: String, action: @escaping () -> Void) {
         performUIUpdatesOnMain {
             let ac = UIAlertController(title: nil, message: withMessage, preferredStyle: .alert)
@@ -48,7 +59,14 @@ extension UIViewController {
             self.present(ac, animated: true)
         }
     }
+    
+    
+    /// GCD to back to main thread and update screen
+    ///
+    /// - Parameter updates: closure to call screen updates
+    func performUIUpdatesOnMain(_ updates: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            updates()
+        }
+    }
 }
-
-
-
