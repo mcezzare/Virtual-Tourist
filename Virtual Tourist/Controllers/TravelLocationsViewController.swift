@@ -164,7 +164,7 @@ extension TravelLocationsViewController {
                 return
             }
             // segue working..
-            performSegue(withIdentifier: "showAlbum", sender: annotation )
+            performSegue(withIdentifier: "showAlbum", sender: pin )
         }
     }
 }

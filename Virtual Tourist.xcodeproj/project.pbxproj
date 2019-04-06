@@ -23,6 +23,10 @@
 		256473EE225719BD001AEBB3 /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256473EA225719BD001AEBB3 /* Pin+CoreDataProperties.swift */; };
 		25A44AFF2257F0DE00402719 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44AFE2257F0DE00402719 /* CoreDataManager.swift */; };
 		25A44B012257FA3800402719 /* ViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B002257FA3800402719 /* ViewController+Extensions.swift */; };
+		25A44B112258426D00402719 /* PhotoAlbumViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B102258426D00402719 /* PhotoAlbumViewController+Extension.swift */; };
+		25A44B132258429500402719 /* PhotosParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B122258429500402719 /* PhotosParser.swift */; };
+		25A44B1B2258438900402719 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B192258438900402719 /* Client.swift */; };
+		25A44B1C2258438900402719 /* Client+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A44B1A2258438900402719 /* Client+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,10 @@
 		256473EA225719BD001AEBB3 /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		25A44AFE2257F0DE00402719 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		25A44B002257FA3800402719 /* ViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Extensions.swift"; sourceTree = "<group>"; };
+		25A44B102258426D00402719 /* PhotoAlbumViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoAlbumViewController+Extension.swift"; sourceTree = "<group>"; };
+		25A44B122258429500402719 /* PhotosParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosParser.swift; sourceTree = "<group>"; };
+		25A44B192258438900402719 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = "Virtual Tourist/Network/Client.swift"; sourceTree = SOURCE_ROOT; };
+		25A44B1A2258438900402719 /* Client+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Client+Extension.swift"; path = "Virtual Tourist/Network/Client+Extension.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,11 +123,11 @@
 		256473A92256D4F2001AEBB3 /* Virtual Tourist */ = {
 			isa = PBXGroup;
 			children = (
+				25A44B182258435900402719 /* Network */,
 				25A44AFA2257F08F00402719 /* Database */,
 				256473E02256E3FB001AEBB3 /* Models */,
 				256473DD2256E3A7001AEBB3 /* Views */,
 				256473DC2256E38F001AEBB3 /* Extensions */,
-				256473DE2256E3CD001AEBB3 /* Network */,
 				256473DF2256E3EB001AEBB3 /* Controllers */,
 				256473AA2256D4F2001AEBB3 /* AppDelegate.swift */,
 				256473AE2256D4F2001AEBB3 /* Main.storyboard */,
@@ -173,18 +181,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		256473DE2256E3CD001AEBB3 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		256473DF2256E3EB001AEBB3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				256473E12256E454001AEBB3 /* TravelLocationsViewController.swift */,
 				256473E32256E498001AEBB3 /* PhotoAlbumViewController.swift */,
+				25A44B102258426D00402719 /* PhotoAlbumViewController+Extension.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -196,6 +198,7 @@
 				256473E8225719BD001AEBB3 /* Photo+CoreDataProperties.swift */,
 				256473E9225719BD001AEBB3 /* Pin+CoreDataClass.swift */,
 				256473EA225719BD001AEBB3 /* Pin+CoreDataProperties.swift */,
+				25A44B122258429500402719 /* PhotosParser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,6 +209,16 @@
 				25A44AFE2257F0DE00402719 /* CoreDataManager.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		25A44B182258435900402719 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				25A44B192258438900402719 /* Client.swift */,
+				25A44B1A2258438900402719 /* Client+Extension.swift */,
+			);
+			name = Network;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -347,8 +360,12 @@
 				256473AB2256D4F2001AEBB3 /* AppDelegate.swift in Sources */,
 				256473E42256E498001AEBB3 /* PhotoAlbumViewController.swift in Sources */,
 				256473ED225719BD001AEBB3 /* Pin+CoreDataClass.swift in Sources */,
+				25A44B1B2258438900402719 /* Client.swift in Sources */,
 				256473E22256E454001AEBB3 /* TravelLocationsViewController.swift in Sources */,
+				25A44B112258426D00402719 /* PhotoAlbumViewController+Extension.swift in Sources */,
+				25A44B1C2258438900402719 /* Client+Extension.swift in Sources */,
 				25A44AFF2257F0DE00402719 /* CoreDataManager.swift in Sources */,
+				25A44B132258429500402719 /* PhotosParser.swift in Sources */,
 				256473E62256FDB3001AEBB3 /* PhotoViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

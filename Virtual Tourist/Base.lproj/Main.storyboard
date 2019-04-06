@@ -109,24 +109,20 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OdY-eW-mXD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="0.0"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OdY-eW-mXD">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ivp-fH-lhA" userLabel="Image Activity Indicator">
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Ivp-fH-lhA" userLabel="Image Activity Indicator">
                                                             <rect key="frame" x="65" y="-10" width="20" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </activityIndicatorView>
                                                     </subviews>
                                                 </view>
                                                 <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="OdY-eW-mXD" secondAttribute="bottom" id="dPA-bf-9ac"/>
-                                                    <constraint firstItem="OdY-eW-mXD" firstAttribute="top" secondItem="6EV-7L-7F6" secondAttribute="top" id="phr-qM-fTE"/>
-                                                    <constraint firstItem="Ivp-fH-lhA" firstAttribute="centerY" secondItem="6EV-7L-7F6" secondAttribute="centerY" id="ufl-RX-n2O"/>
-                                                    <constraint firstItem="Ivp-fH-lhA" firstAttribute="centerX" secondItem="6EV-7L-7F6" secondAttribute="centerX" id="yr6-jT-H7E"/>
-                                                    <constraint firstAttribute="trailing" secondItem="OdY-eW-mXD" secondAttribute="trailing" id="yz7-O8-SEb"/>
-                                                    <constraint firstItem="OdY-eW-mXD" firstAttribute="leading" secondItem="6EV-7L-7F6" secondAttribute="leading" id="zoe-dG-qpV"/>
-                                                </constraints>
+                                                <size key="customSize" width="150" height="150"/>
                                                 <connections>
+                                                    <outlet property="activityIndicator" destination="Ivp-fH-lhA" id="7DF-uK-s5d"/>
                                                     <outlet property="imageView" destination="OdY-eW-mXD" id="oi6-TT-6US"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -141,6 +137,12 @@
                                     <constraint firstAttribute="height" constant="50" id="h3k-vX-EFR"/>
                                 </constraints>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MrE-gN-RaO">
+                                <rect key="frame" x="166.5" y="355.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0P-2w-auU">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
@@ -158,19 +160,29 @@
                         <constraints>
                             <constraint firstItem="ghr-Hu-bhV" firstAttribute="top" secondItem="S72-j2-7EW" secondAttribute="top" id="AeQ-de-IP9"/>
                             <constraint firstItem="faV-y4-fpt" firstAttribute="centerX" secondItem="S72-j2-7EW" secondAttribute="centerX" id="Dlh-fx-doa"/>
+                            <constraint firstItem="MrE-gN-RaO" firstAttribute="centerX" secondItem="S72-j2-7EW" secondAttribute="centerX" id="Jba-Sx-hmQ"/>
                             <constraint firstItem="S72-j2-7EW" firstAttribute="bottom" secondItem="ghr-Hu-bhV" secondAttribute="bottom" id="K6E-rY-BLw"/>
                             <constraint firstItem="faV-y4-fpt" firstAttribute="centerY" secondItem="S72-j2-7EW" secondAttribute="centerY" constant="-32" id="Kzo-eq-7k5"/>
                             <constraint firstItem="S72-j2-7EW" firstAttribute="trailing" secondItem="ghr-Hu-bhV" secondAttribute="trailing" id="PDH-89-viy"/>
                             <constraint firstItem="ghr-Hu-bhV" firstAttribute="leading" secondItem="S72-j2-7EW" secondAttribute="leading" id="apP-ih-wxi"/>
+                            <constraint firstItem="MrE-gN-RaO" firstAttribute="centerY" secondItem="S72-j2-7EW" secondAttribute="centerY" id="ldE-fi-kT6"/>
                             <constraint firstItem="C0P-2w-auU" firstAttribute="centerX" secondItem="S72-j2-7EW" secondAttribute="centerX" id="rya-k6-whU"/>
                             <constraint firstItem="S72-j2-7EW" firstAttribute="bottom" secondItem="C0P-2w-auU" secondAttribute="bottom" id="y8G-5n-Meh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S72-j2-7EW"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="faV-y4-fpt" id="PrK-IX-iwx"/>
+                        <outlet property="button" destination="8UQ-Bh-aWD" id="lh5-V5-k9v"/>
+                        <outlet property="collectionView" destination="7Dl-O1-cRB" id="3Jw-lt-kuc"/>
+                        <outlet property="flowLayout" destination="y9c-fd-jLp" id="8JP-De-LIJ"/>
+                        <outlet property="labelStatus" destination="MrE-gN-RaO" id="uEl-Hh-EXr"/>
+                        <outlet property="mapView" destination="fbr-ZY-kW8" id="1TV-So-adN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C6h-dG-Gc9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1194" y="86"/>
+            <point key="canvasLocation" x="1192.8" y="85.907046476761622"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zVE-UC-jod">
