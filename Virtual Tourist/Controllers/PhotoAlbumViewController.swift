@@ -81,6 +81,12 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     ///
     /// - Parameter sender: trash bar iten button
     @IBAction func deletePhotos(_ sender: Any) {
+        
+        if self.selectedIndexes.count == 0 {
+            showInfoAlert(withTitle: "No images selected.", withMessage: "Tap at one or more images to remove.")
+            return
+        }
+        
         let confirmMessage = "Remove selected itens?"
         self.showConfirmationAlert(withMessage: confirmMessage, actionTitle: "Remove") {
             // code to remove itens from collection and from DB.
@@ -179,7 +185,6 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         func showErrorMessage(msg: String) {
             showInfoAlert(withTitle: "Error", withMessage: msg)
         }
-        self.enableUIControls(false)
         for photo in photos {
             performUIUpdatesOnMain {
                 if let url = photo.url {
@@ -189,9 +194,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
             }
             
         }
-        performUIUpdatesOnMain {
-            self.enableUIControls(true)
-        }
+
     }
     
     
