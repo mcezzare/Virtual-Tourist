@@ -18,6 +18,7 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var footerView: UIView!
     
     // MARK: - Variables
+    
     var pinAnnotation: MKPointAnnotation? = nil
     
     // MARK: - UIViewController Life Cycle
@@ -34,6 +35,11 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    /// Used to remove pins on map
+    ///
+    /// - Parameters:
+    ///   - editing: if is editing mode
+    ///   - animated: animated mode
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         footerView.isHidden = !editing
@@ -53,6 +59,10 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Actions
     
+    
+    /// Drop the pin on Map
+    ///
+    /// - Parameter sender: a long hold tap on screen
     @IBAction func addPinGesture(_ sender: UILongPressGestureRecognizer) {
         
         let location = sender.location(in: mapView)
@@ -87,6 +97,9 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Helpers
     
+    /// Fetch all Pins from database
+    ///
+    /// - Returns: list of Pins
     private func loadAllPins() -> [Pin]? {
         var pins: [Pin]?
         do {
@@ -98,6 +111,13 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
         return pins
     }
     
+    
+    /// Fetch data from specific Pin from database
+    ///
+    /// - Parameters:
+    ///   - latitude: latitude coordinate
+    ///   - longitude: longitude coordinate
+    /// - Returns: a Pin Entity
     private func loadPin(latitude: String, longitude: String) -> Pin? {
         let predicate = NSPredicate(format: "latitude == %@ AND longitude == %@", latitude, longitude)
         var pin: Pin?
@@ -110,6 +130,10 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
         return pin
     }
     
+    
+    /// Load Pins on Map View
+    ///
+    /// - Parameter pins: pins loaded from DB
     func showPins(_ pins: [Pin]) {
         for pin in pins where pin.latitude != nil && pin.longitude != nil {
             let annotation = MKPointAnnotation()
@@ -128,7 +152,7 @@ class TravelLocationsViewController: UIViewController, MKMapViewDelegate {
 
 extension TravelLocationsViewController {
     
-    // MARK: - MKMapViewDelegate
+    // MARK: - MKMapViewDelegates
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseId = "pin"

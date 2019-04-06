@@ -13,7 +13,7 @@ import CoreData
 struct CoreDataManager {
     
     // MARK: - Properties
-    // Private Only
+    
     private let model: NSManagedObjectModel
     private let modelURL: URL
     
@@ -46,7 +46,7 @@ struct CoreDataManager {
         
         debugPrint("\(#function) \(modelURL)")
         
-        // Try to create the model from the URL
+        // Create the model from the specified URL
         guard let model = NSManagedObjectModel(contentsOf: modelURL) else {
             print("unable to create a model from \(modelURL)")
             return nil
@@ -57,11 +57,12 @@ struct CoreDataManager {
         coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
         
         // Create a persistingContext (private queue) and a child one (main queue)
-        // create a context and add connect it to the coordinator
         persistingContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        
+        // Create a context and connect it to the coordinator
         persistingContext.persistentStoreCoordinator = coordinator
         
-        // create a context and add connect it to the coordinator
+        // Create a context and connect it to the coordinator
         context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         context.parent = persistingContext
         
@@ -69,15 +70,16 @@ struct CoreDataManager {
         backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         backgroundContext.parent = context
         
-        // Add a SQLite store located in the documents folder
+        // Instantiate FileManager to access documents folder
         let fm = FileManager.default
         
-        guard let docUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        guard let documentsFolderUrl = fm.urls(for: .documentDirectory, in: .userDomainMask).first else {
             print("Unable to reach the documents folder")
             return nil
         }
         
-        self.dbURL = docUrl.appendingPathComponent("model.sqlite")
+        // Specify a SQLite store located in the documents folder
+        self.dbURL = documentsFolderUrl.appendingPathComponent("model.sqlite")
         
         // Options for migration
         let options = [
@@ -86,7 +88,7 @@ struct CoreDataManager {
         ]
         
         do {
-            try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: options as [NSObject : AnyObject]?)
+            try addCoordinatorStore(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: options as [NSObject : AnyObject]?)
         } catch {
             print("unable to add store at \(dbURL)")
         }
@@ -94,10 +96,27 @@ struct CoreDataManager {
     
     // MARK: - Utils
     
-    func addStoreCoordinator(_ storeType: String, configuration: String?, storeURL: URL, options : [NSObject:AnyObject]?) throws {
+    /// <#Description#>
+    ///
+    /// - Parameters:
+    ///   - storeType: A valid type for storage
+    ///   - configuration: configuration description
+    ///   - storeURL: a valid url inside documents folder
+    ///   - options: array of options
+    /// - Throws: throws value description
+    func addCoordinatorStore(_ storeType: String, configuration: String?, storeURL: URL, options : [NSObject:AnyObject]?) throws {
         try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: nil)
     }
     
+    
+    /// Fetch a specific Pin from DB using a predicate filter
+    ///
+    /// - Parameters:
+    ///   - predicate: a filter
+    ///   - entityName: a name for the Entity/Object
+    ///   - sorting: sorting/field[s] value
+    /// - Returns: a Pin Entity
+    /// - Throws: an error
     func fetchPin(_ predicate: NSPredicate, entityName: String, sorting: NSSortDescriptor? = nil) throws -> Pin? {
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fr.predicate = predicate
@@ -110,6 +129,15 @@ struct CoreDataManager {
         return pin
     }
     
+    
+    /// Fetch all Pins from DB
+    ///
+    /// - Parameters:
+    ///   - predicate: predicate if used
+    ///   - entityName: a name for the Entity/Object
+    ///   - sorting: sorting/field[s] value
+    /// - Returns: a Pin Entity
+    /// - Throws: an error
     func fetchAllPins(_ predicate: NSPredicate? = nil, entityName: String, sorting: NSSortDescriptor? = nil) throws -> [Pin]? {
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fr.predicate = predicate
@@ -122,6 +150,15 @@ struct CoreDataManager {
         return pin
     }
     
+    
+    /// Fetch fotos from DB and external storage
+    ///
+    /// - Parameters:
+    ///   - predicate: predicate if used
+    ///   - entityName: a name for the Entity/Object
+    ///   - sorting: sorting/field[s] value
+    /// - Returns: a Photo Entity
+    /// - Throws: an error
     func fetchPhotos(_ predicate: NSPredicate? = nil, entityName: String, sorting: NSSortDescriptor? = nil) throws -> [Photo]? {
         let fr = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         fr.predicate = predicate
@@ -139,11 +176,14 @@ struct CoreDataManager {
 
 internal extension CoreDataManager  {
     
+    /// Description
+    ///
+    /// - Throws: and error
     func dropAllData() throws {
         // delete all the objects in the db. This won't delete the files, it will
         // just leave empty tables.
         try coordinator.destroyPersistentStore(at: dbURL, ofType:NSSQLiteStoreType , options: nil)
-        try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
+        try addCoordinatorStore(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
     }
 }
 
@@ -151,6 +191,9 @@ internal extension CoreDataManager  {
 
 extension CoreDataManager {
     
+    /// Save the context to DB in async mode
+    ///
+    /// - Throws: and error
     func saveContext() throws {
         context.performAndWait() {
             
@@ -173,6 +216,9 @@ extension CoreDataManager {
         }
     }
     
+    /// Auto save function, not used in this project
+    ///
+    /// - Parameter delayInSeconds: number of seconds
     func autoSave(_ delayInSeconds : Int) {
         
         if delayInSeconds > 0 {

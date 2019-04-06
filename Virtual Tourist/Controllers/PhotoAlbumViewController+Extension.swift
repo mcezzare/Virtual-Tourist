@@ -10,7 +10,10 @@
 import UIKit
 import CoreData
 
+// MARK: - Extension for FRC
 extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
+    
+    // MARK: - Delegates for FRC
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         insertedIndexPaths = [IndexPath]()
@@ -18,12 +21,7 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
         updatedIndexPaths = [IndexPath]()
     }
     
-    func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChange anObject: Any,
-        at indexPath: IndexPath?,
-        for type: NSFetchedResultsChangeType,
-        newIndexPath: IndexPath?) {
+    func controller( _ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch (type) {
         case .insert:
@@ -36,7 +34,7 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
             break
         case .move:
-            print("Move an item. We don't expect to see this in this app.")
+            print("Not used in this application.")
             break
         }
     }
@@ -62,11 +60,11 @@ extension PhotoAlbumViewController: NSFetchedResultsControllerDelegate {
     
 }
 
-// MARK: - UICollectionView DataSource & Delegate
+// MARK: - Extension for UICollectionView
 
 extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    
+    // MARK: - UICollectionView DataSources
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return fetchedResultsController.sections?.count ?? 0
@@ -76,8 +74,11 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         if let sectionInfo = self.fetchedResultsController.sections?[section] {
             return sectionInfo.numberOfObjects
         }
+        
         return 0
     }
+    
+    // MARK: - UICollectionView Delegates
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -92,20 +93,31 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         let photo = fetchedResultsController.object(at: indexPath)
         let photoViewCell = cell as! PhotoViewCell
         photoViewCell.imageUrl = photo.imageUrl!
-        configImage(using: photoViewCell, photo: photo, collectionView: collectionView, index: indexPath)
+        configureImagesForDisplay(using: photoViewCell, photo: photo, collectionView: collectionView, index: indexPath)
     }
     
-    // To delete images
+    // To select itens and then to delete images
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.allowsMultipleSelection = true
         self.selectedIndexes.append(indexPath)
+        debugPrint("adding \(indexPath)")
         // Migrate this code to implement multiple selection and confirmation alert to remove itens
         //let photoToDelete = fetchedResultsController.object(at: indexPath)
         //CoreDataManager.shared().context.delete(photoToDelete)
         //save()
     }
     
-    
+    // To avoid remove itens unselected
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        //        print("unselecting \(indexPath)")
+        //        print("current list:\(self.selectedIndexes)")
+        for (index,value) in self.selectedIndexes.enumerated() {
+            if value == indexPath {
+                //                print("found at \(index) position")
+                self.selectedIndexes.remove(at: index)
+            }
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying: UICollectionViewCell, forItemAt: IndexPath) {
         
@@ -121,7 +133,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
     
     // MARK: - Helpers
     
-    private func configImage(using cell: PhotoViewCell, photo: Photo, collectionView: UICollectionView, index: IndexPath) {
+    private func configureImagesForDisplay(using cell: PhotoViewCell, photo: Photo, collectionView: UICollectionView, index: IndexPath) {
         if let imageData = photo.image {
             cell.activityIndicator.stopAnimating()
             cell.imageView.image = UIImage(data: Data(referencing: imageData))
@@ -132,7 +144,7 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
                     if let _ = error {
                         self.performUIUpdatesOnMain {
                             cell.activityIndicator.stopAnimating()
-                            self.errorForImageUrl(imageUrl)
+                            self.displayErrorForImageURL(imageUrl)
                         }
                         return
                     } else if let data = data {
@@ -155,13 +167,17 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         }
     }
     
-    private func errorForImageUrl(_ imageUrl: String) {
-        if !self.presentingAlert {
+    
+    /// Show an alert in case of valid URL and invalid resource
+    ///
+    /// - Parameter imageUrl: string for a image URL
+    private func displayErrorForImageURL(_ imageUrl: String) {
+        if !self.displayAlertForInvalidImages {
             self.showInfoAlert(withTitle: "Error", withMessage: "Error while fetching image for URL: \(imageUrl)", action: {
-                self.presentingAlert = false
+                self.displayAlertForInvalidImages = false
             })
         }
-        self.presentingAlert = true
+        self.displayAlertForInvalidImages = true
     }
     
 }
