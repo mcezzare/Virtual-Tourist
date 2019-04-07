@@ -1,5 +1,15 @@
 # Virtual Tourist
 
+- [Virtual Tourist](#virtual-tourist)
+  * [Implementation](#implementation)
+  * [Example of user flow](#example-of-user-flow)
+    + [Removing images from Album](#removing-images-from-album)
+  * [Requirements](#requirements)
+    + [Background Services](#background-services)
+  * [How to Contribute](#how-to-contribute)
+  * [License](#license)
+  * [Other Resources](#other-resources)
+
 Virtual Tourist is the fourth project from the **Udacity's iOS Developer Nanodegree course** `(nd003)`.
 
 This app allows users specify travel locations around the world, and create virtual photo albums for each location. The locations and photo albums will be stored in [Core Data](https://developer.apple.com/documentation/coredata) and photos come from [Flickr](https://www.flickr.com/services/api/).
@@ -45,6 +55,8 @@ If there is results from the Flickr API, apps start to download photos and persi
 With album fully loaded, user can tap the `New Collection` button to fetch other pictures to this album.
 
 ![PhotoAlbumViewController](repository-media/05-PhotoAlbumViewController-loaded.png)
+
+### Removing images from Album
 
 In the App example of [udacity](https://itunes.apple.com/us/app/virtual-tourist-portfolio/id994696845?mt=8), if the user selects an image, the `New Collection` button is changed by a `Remove items` button, I decided to use a trash button as I find it more intuitive.
 
