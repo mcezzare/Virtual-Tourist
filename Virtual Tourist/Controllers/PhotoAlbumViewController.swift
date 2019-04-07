@@ -116,12 +116,12 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     /// - Parameter pin: pin entity
     private func setupFetchedResultControllerWith(_ pin: Pin) {
         
-        let fr = NSFetchRequest<Photo>(entityName: Photo.name)
-        fr.sortDescriptors = []
-        fr.predicate = NSPredicate(format: "pin == %@", argumentArray: [pin])
+        let fetchRequest = NSFetchRequest<Photo>(entityName: Photo.name)
+        fetchRequest.sortDescriptors = []
+        fetchRequest.predicate = NSPredicate(format: "pin == %@", argumentArray: [pin])
         
         // Create the fRC
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fr, managedObjectContext: CoreDataManager.shared().context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared().context, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
         // Start the fRC
@@ -273,14 +273,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     @objc func reloadCompleted() {
         self.enableUIControls(true)
     }
-    //    I chose to use a trash button in TabBar
-    //    func updateBottomButton() {
-    //        if selectedIndexes.count > 0 {
-    //            button.setTitle("Remove Selected", for: .normal)
-    //        } else {
-    //            button.setTitle("New Collection", for: .normal)
-    //        }
-    //    }
+
 }
 
 // MARK: - Extensions

@@ -107,16 +107,10 @@ extension PhotoAlbumViewController: UICollectionViewDataSource, UICollectionView
         collectionView.allowsMultipleSelection = true
         self.selectedIndexes.append(indexPath)
         debugPrint("adding \(indexPath)")
-        // Migrate this code to implement multiple selection and confirmation alert to remove itens
-        //let photoToDelete = fetchedResultsController.object(at: indexPath)
-        //CoreDataManager.shared().context.delete(photoToDelete)
-        //save()
     }
     
     // To avoid remove itens unselected
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        //        print("unselecting \(indexPath)")
-        //        print("current list:\(self.selectedIndexes)")
         for (index,value) in self.selectedIndexes.enumerated() {
             if value == indexPath {
                 //                print("found at \(index) position")
