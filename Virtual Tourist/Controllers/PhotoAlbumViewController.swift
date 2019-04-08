@@ -63,12 +63,14 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         updateFlowLayout(size)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
     // MARK: - Actions
     
     /// Delete all photos from DB and get new from Flickr API
@@ -128,8 +130,8 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
         var error: NSError?
         do {
             try fetchedResultsController.performFetch()
-        } catch let error1 as NSError {
-            error = error1
+        } catch let catchedError as NSError {
+            error = catchedError
         }
         
         if let error = error {
@@ -273,7 +275,7 @@ class PhotoAlbumViewController: UIViewController, MKMapViewDelegate {
     @objc func reloadCompleted() {
         self.enableUIControls(true)
     }
-
+    
 }
 
 // MARK: - Extensions
